@@ -128,9 +128,9 @@ class FeedDictFlowAlex(DataFlow):
             A TensorFlow feed dict, or 'False' if it has no more data.
 
         """
-	#print('next')
         self.data_status.update()
         fd = self.feed_dict_queue.get(timeout=timeout)
+        # alex added this
         if fd:
             patches_idxs = fd.values()[0]
             x = np.empty([len(patches_idxs),33,33,4])

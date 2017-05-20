@@ -9,7 +9,7 @@ import tensorflow as tf
 import numpy as np
 
 
-def get_network():
+def get_network(do_dropout=True):
         # input images
         network = input_data(shape=[None,33,33,4], name='input')
 
@@ -23,9 +23,11 @@ def get_network():
 
 	# fully connected layers
 	network = fully_connected(network, 128, activation='relu')
-	network = dropout(network, 0.8)
+	if do_dropout:
+		network = dropout(network, 0.8)
 	network = fully_connected(network, 256, activation='relu')
-	network = dropout(network, 0.8)
+	if do_dropout:
+		network = dropout(network, 0.8)
 
 	# softmax + output layers
 	network = fully_connected(network, 5, activation='softmax', name='soft')

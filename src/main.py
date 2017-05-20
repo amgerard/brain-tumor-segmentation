@@ -25,7 +25,7 @@ from get_data2 import get_data, get_val_data, get_trn_data
 
 if __name__ == '__main__':
 	
-	name = 'p3'
+	name = 'n3'
 	logs_dir = 'logs/' + name + '/'
         cp_dir = 'chpts/' + name + '/'
         rid = name
@@ -42,16 +42,16 @@ if __name__ == '__main__':
 	
 	with tf.device('/gpu:0'):
 		#network = cnn_3x3.get_network()
-		network = cnn_2path.get_network()
-		#network = cnn_naive.get_network()
+		#network = cnn_2path.get_network()
+		network = cnn_naive.get_network(do_dropout=False)
 	
         model = tflearn.DNN(network, tensorboard_verbose=2, tensorboard_dir=logs_dir, checkpoint_path=cp_dir)
        	#model.load('n3.tfl')
-       	#model.load(name + '.tfl')
-	#evaluate.evaluate_model(model,testX,testY)
+       	model.load(name + '.tfl')
+	evaluate.evaluate_model(model,testX,testY)
 
         # train
-        print('start training')
+        '''print('start training')
         try:
 		model.fit({'input': X}, {'target': Y}, n_epoch=2, # 20
 			   #validation_set=({'input': testX}, {'target': testY}),
@@ -60,4 +60,4 @@ if __name__ == '__main__':
 	except KeyboardInterrupt:
 		# Manually save model
 		model.save(name + ".tfl")
-
+'''
